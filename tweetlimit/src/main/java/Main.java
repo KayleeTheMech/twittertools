@@ -9,8 +9,11 @@ public class Main {
     }
 
 
-    private static Properties getMergedProperties(){
-        Properties properties= getProperties("src/main/java/tweetlimit.properties");
+    private static Properties getMergedProperties() {
+        Properties properties = getProperties("src/main/java/tweetlimit.properties");
+        String globalFolder = properties.getProperty("GLOBAL_SECRETS_FOLDER").replaceFirst("^~", System.getProperty("user.home"));
+        Properties globalProperties = getProperties(globalFolder + "globaltwitter.properties");
+        properties.putAll(globalProperties);
         return properties;
     }
 
